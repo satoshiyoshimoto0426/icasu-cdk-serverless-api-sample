@@ -418,5 +418,273 @@ export async function setupRoutes(app) {
     }
   });
   
+  app.get('/api/users', async (req, res) => {
+    try {
+      const users = [
+        {
+          id: "user1",
+          name: "田中太郎",
+          email: "tanaka@example.com",
+          role: "管理者",
+          registeredAt: "2024-01-15T09:30:00Z",
+          lastLogin: "2025-04-05T14:22:10Z",
+          status: "active"
+        },
+        {
+          id: "user2",
+          name: "佐藤花子",
+          email: "sato@example.com",
+          role: "スタッフ",
+          registeredAt: "2024-02-20T11:15:00Z",
+          lastLogin: "2025-04-04T09:45:30Z",
+          status: "active"
+        },
+        {
+          id: "user3",
+          name: "鈴木一郎",
+          email: "suzuki@example.com",
+          role: "講師",
+          registeredAt: "2024-03-10T14:00:00Z",
+          lastLogin: "2025-04-01T16:20:15Z",
+          status: "active"
+        },
+        {
+          id: "user4",
+          name: "高橋誠",
+          email: "takahashi@example.com",
+          role: "スタッフ",
+          registeredAt: "2024-01-25T10:45:00Z",
+          lastLogin: "2025-03-28T11:30:45Z",
+          status: "inactive"
+        },
+        {
+          id: "user5",
+          name: "伊藤美咲",
+          email: "ito@example.com",
+          role: "講師",
+          registeredAt: "2024-04-05T09:00:00Z",
+          lastLogin: "2025-04-05T10:15:20Z",
+          status: "active"
+        },
+        {
+          id: "user6",
+          name: "渡辺健太",
+          email: "watanabe@example.com",
+          role: "ボランティア",
+          registeredAt: "2024-03-15T13:30:00Z",
+          lastLogin: "2025-03-20T15:40:10Z",
+          status: "inactive"
+        },
+        {
+          id: "user7",
+          name: "山田直樹",
+          email: "yamada@example.com",
+          role: "スタッフ",
+          registeredAt: "2024-02-10T08:45:00Z",
+          lastLogin: "2025-04-03T12:10:05Z",
+          status: "active"
+        },
+        {
+          id: "user8",
+          name: "中村優子",
+          email: "nakamura@example.com",
+          role: "講師",
+          registeredAt: "2024-01-30T15:20:00Z",
+          lastLogin: "2025-04-02T09:25:30Z",
+          status: "active"
+        },
+        {
+          id: "user9",
+          name: "小林健",
+          email: "kobayashi@example.com",
+          role: "ボランティア",
+          registeredAt: "2024-04-01T11:00:00Z",
+          lastLogin: null,
+          status: "pending"
+        },
+        {
+          id: "user10",
+          name: "加藤裕子",
+          email: "kato@example.com",
+          role: "スタッフ",
+          registeredAt: "2024-03-25T10:30:00Z",
+          lastLogin: "2025-04-04T14:50:15Z",
+          status: "active"
+        },
+        {
+          id: "user11",
+          name: "松本和也",
+          email: "matsumoto@example.com",
+          role: "講師",
+          registeredAt: "2024-02-15T09:15:00Z",
+          lastLogin: "2025-03-30T11:05:40Z",
+          status: "active"
+        },
+        {
+          id: "user12",
+          name: "井上真理",
+          email: "inoue@example.com",
+          role: "ボランティア",
+          registeredAt: "2024-01-20T14:45:00Z",
+          lastLogin: null,
+          status: "pending"
+        }
+      ];
+      
+      res.json(users);
+    } catch (error) {
+      log(`Error retrieving users: ${error instanceof Error ? error.message : String(error)}`, 3);
+      res.status(500).json({
+        message: 'ユーザーデータの取得中にエラーが発生しました',
+        error: error instanceof Error ? error.message : '不明なエラー'
+      });
+    }
+  });
+  
+  app.get('/api/files', async (req, res) => {
+    try {
+      const files = [
+        {
+          id: "file1",
+          name: "2025年度事業計画書.pdf",
+          type: "application/pdf",
+          size: 2456789,
+          category: "documents",
+          uploadedBy: "田中太郎",
+          uploadedAt: "2025-03-15T10:30:00Z",
+          url: "/uploads/business_plan_2025.pdf"
+        },
+        {
+          id: "file2",
+          name: "料理教室チラシ.jpg",
+          type: "image/jpeg",
+          size: 1245678,
+          category: "images",
+          uploadedBy: "佐藤花子",
+          uploadedAt: "2025-03-20T14:15:00Z",
+          url: "/uploads/cooking_class_flyer.jpg"
+        },
+        {
+          id: "file3",
+          name: "予算計画2025.xlsx",
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          size: 987654,
+          category: "spreadsheets",
+          uploadedBy: "高橋誠",
+          uploadedAt: "2025-03-10T09:45:00Z",
+          url: "/uploads/budget_plan_2025.xlsx"
+        },
+        {
+          id: "file4",
+          name: "理事会議事録_2025-03.docx",
+          type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          size: 567890,
+          category: "documents",
+          uploadedBy: "田中太郎",
+          uploadedAt: "2025-04-01T11:20:00Z",
+          url: "/uploads/board_minutes_2025-03.docx"
+        },
+        {
+          id: "file5",
+          name: "料理教室写真集.zip",
+          type: "application/zip",
+          size: 15678901,
+          category: "images",
+          uploadedBy: "鈴木一郎",
+          uploadedAt: "2025-03-25T16:30:00Z",
+          url: "/uploads/cooking_class_photos.zip"
+        },
+        {
+          id: "file6",
+          name: "新メニュー提案.pptx",
+          type: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+          size: 3456789,
+          category: "presentations",
+          uploadedBy: "伊藤美咲",
+          uploadedAt: "2025-03-18T13:10:00Z",
+          url: "/uploads/new_menu_proposal.pptx"
+        },
+        {
+          id: "file7",
+          name: "会員アンケート結果.csv",
+          type: "text/csv",
+          size: 234567,
+          category: "spreadsheets",
+          uploadedBy: "山田直樹",
+          uploadedAt: "2025-03-22T10:00:00Z",
+          url: "/uploads/member_survey_results.csv"
+        },
+        {
+          id: "file8",
+          name: "施設利用マニュアル.pdf",
+          type: "application/pdf",
+          size: 1876543,
+          category: "documents",
+          uploadedBy: "中村優子",
+          uploadedAt: "2025-03-05T15:45:00Z",
+          url: "/uploads/facility_manual.pdf"
+        }
+      ];
+      
+      res.json(files);
+    } catch (error) {
+      log(`Error retrieving files: ${error instanceof Error ? error.message : String(error)}`, 3);
+      res.status(500).json({
+        message: 'ファイル一覧の取得中にエラーが発生しました',
+        error: error instanceof Error ? error.message : '不明なエラー'
+      });
+    }
+  });
+  
+  app.get('/api/analytics', async (req, res) => {
+    try {
+      const timeRange = req.query.timeRange || 'month';
+      
+      const analyticsData = {
+        revenue: {
+          monthly: [
+            { month: '1月', amount: 850000 },
+            { month: '2月', amount: 920000 },
+            { month: '3月', amount: 880000 },
+            { month: '4月', amount: 950000 },
+            { month: '5月', amount: 1020000 },
+            { month: '6月', amount: 980000 }
+          ],
+          yearly: [
+            { year: '2022', amount: 9500000 },
+            { year: '2023', amount: 10200000 },
+            { year: '2024', amount: 11500000 },
+            { year: '2025', amount: 6000000 }
+          ]
+        },
+        members: {
+          total: 120,
+          active: 95,
+          new: [
+            { month: '1月', count: 8 },
+            { month: '2月', count: 12 },
+            { month: '3月', count: 10 },
+            { month: '4月', count: 15 },
+            { month: '5月', count: 9 },
+            { month: '6月', count: 11 }
+          ]
+        },
+        activities: {
+          meetings: 24,
+          tasks: { completed: 87, pending: 34, total: 121 },
+          documents: 45
+        }
+      };
+      
+      res.json(analyticsData);
+    } catch (error) {
+      log(`Error retrieving analytics data: ${error instanceof Error ? error.message : String(error)}`, 3);
+      res.status(500).json({
+        message: '分析データの取得中にエラーが発生しました',
+        error: error instanceof Error ? error.message : '不明なエラー'
+      });
+    }
+  });
+  
   log("APIルートの登録が完了しました");
 }

@@ -10,7 +10,8 @@ import {
   Settings, 
   HelpCircle,
   Database,
-  CreditCard
+  CreditCard,
+  FolderOpen
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -31,9 +32,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
     { path: '/accounting', label: '会計管理', icon: <CreditCard size={20} /> },
     { path: '/meeting-minutes', label: '議事録', icon: <FileText size={20} /> },
     { path: '/chatbot', label: 'AIチャット', icon: <MessageCircle size={20} /> },
-    { path: '/members', label: '会員管理', icon: <Users size={20} /> },
+    { path: '/members', label: '利用者関係者登録', icon: <Users size={20} /> },
     { path: '/data-analysis', label: 'データ分析', icon: <BarChart2 size={20} /> },
     { path: '/database', label: 'データベース', icon: <Database size={20} /> },
+    { path: '/file-management', label: 'ファイル管理', icon: <FolderOpen size={20} /> },
   ];
 
   // ユーティリティナビゲーション

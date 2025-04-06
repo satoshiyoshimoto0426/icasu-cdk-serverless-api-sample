@@ -6,6 +6,9 @@ import Accounting from './pages/Accounting';
 import MeetingMinutes from './pages/MeetingMinutes';
 import ChatBot from './pages/ChatBot';
 import Login from './pages/Login';
+import Database from './pages/Database';
+import DataAnalysis from './pages/DataAnalysis';
+import FileManagement from './pages/FileManagement';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import { UserProvider } from './contexts/UserContext';
@@ -61,6 +64,10 @@ function App() {
               <Route path="/accounting" component={Accounting} />
               <Route path="/meeting-minutes" component={MeetingMinutes} />
               <Route path="/chatbot" component={ChatBot} />
+              <Route path="/members" component={Database} />
+              <Route path="/data-analysis" component={DataAnalysis} />
+              <Route path="/database" component={Database} />
+              <Route path="/file-management" component={FileManagement} />
               <Route>
                 <div className="text-center py-10">
                   <h1 className="text-2xl font-bold text-gray-800">404 - ページが見つかりません</h1>
