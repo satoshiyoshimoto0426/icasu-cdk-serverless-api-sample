@@ -22,4 +22,12 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        registration: path.resolve(__dirname, 'registration.html'),
+      },
+    },
+  },
 });

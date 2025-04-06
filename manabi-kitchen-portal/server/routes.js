@@ -1,6 +1,7 @@
 import multer from "multer";
 import * as path from "path";
 import * as fs from "fs";
+import { setupRegistrationRoutes } from "./routes/registration.js";
 
 function log(message, level = 1) {
   const timestamp = new Date().toISOString();
@@ -685,6 +686,8 @@ export async function setupRoutes(app) {
       });
     }
   });
+  
+  setupRegistrationRoutes(app);
   
   log("APIルートの登録が完了しました");
 }
