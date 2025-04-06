@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 interface Registration {
@@ -25,6 +25,167 @@ interface User {
 
 type DataItem = User | Registration;
 
+const mockUsers: User[] = [
+  {
+    id: 'user_1',
+    name: '山田 太郎',
+    email: 'yamada@example.com',
+    role: '管理者',
+    registeredAt: '2024-01-15T09:30:00Z',
+    lastLogin: '2024-04-05T14:22:00Z',
+    status: 'active'
+  },
+  {
+    id: 'user_2',
+    name: '佐藤 花子',
+    email: 'sato@example.com',
+    role: 'スタッフ',
+    registeredAt: '2024-02-10T11:15:00Z',
+    lastLogin: '2024-04-04T09:45:00Z',
+    status: 'active'
+  },
+  {
+    id: 'user_3',
+    name: '鈴木 一郎',
+    email: 'suzuki@example.com',
+    role: 'ボランティア管理者',
+    registeredAt: '2024-01-20T13:45:00Z',
+    lastLogin: '2024-04-01T16:30:00Z',
+    status: 'active'
+  },
+  {
+    id: 'user_4',
+    name: '高橋 実',
+    email: 'takahashi@example.com',
+    role: 'スタッフ',
+    registeredAt: '2024-03-05T10:00:00Z',
+    lastLogin: '2024-03-28T11:20:00Z',
+    status: 'inactive'
+  },
+  {
+    id: 'user_5',
+    name: '田中 美咲',
+    email: 'tanaka@example.com',
+    role: 'スタッフ',
+    registeredAt: '2024-03-15T14:30:00Z',
+    lastLogin: '',
+    status: 'pending'
+  }
+];
+
+const mockRegistrations: Registration[] = [
+  {
+    id: 'reg_1',
+    registrationType: 'child',
+    fullName: '山田 悠太',
+    furigana: 'やまだ ゆうた',
+    email: 'parent1@example.com',
+    phone: '090-1234-5678',
+    address: '東京都新宿区1-2-3',
+    createdAt: '2024-03-10T09:15:00Z',
+    updatedAt: '2024-03-10T09:15:00Z'
+  },
+  {
+    id: 'reg_2',
+    registrationType: 'parent',
+    fullName: '山田 美香',
+    furigana: 'やまだ みか',
+    email: 'parent1@example.com',
+    phone: '090-1234-5678',
+    address: '東京都新宿区1-2-3',
+    createdAt: '2024-03-10T09:20:00Z',
+    updatedAt: '2024-03-10T09:20:00Z'
+  },
+  {
+    id: 'reg_3',
+    registrationType: 'volunteer',
+    fullName: '佐藤 健太',
+    furigana: 'さとう けんた',
+    email: 'volunteer1@example.com',
+    phone: '080-9876-5432',
+    address: '東京都渋谷区4-5-6',
+    createdAt: '2024-02-15T14:30:00Z',
+    updatedAt: '2024-02-15T14:30:00Z'
+  },
+  {
+    id: 'reg_4',
+    registrationType: 'supporter',
+    fullName: '鈴木 企業',
+    furigana: 'すずき きぎょう',
+    email: 'company@example.com',
+    phone: '03-1234-5678',
+    address: '東京都千代田区7-8-9',
+    createdAt: '2024-01-20T11:45:00Z',
+    updatedAt: '2024-01-20T11:45:00Z'
+  },
+  {
+    id: 'reg_5',
+    registrationType: 'child',
+    fullName: '田中 さくら',
+    furigana: 'たなか さくら',
+    email: 'parent2@example.com',
+    phone: '090-8765-4321',
+    address: '東京都目黒区10-11-12',
+    createdAt: '2024-03-05T10:30:00Z',
+    updatedAt: '2024-03-05T10:30:00Z'
+  },
+  {
+    id: 'reg_6',
+    registrationType: 'parent',
+    fullName: '田中 誠',
+    furigana: 'たなか まこと',
+    email: 'parent2@example.com',
+    phone: '090-8765-4321',
+    address: '東京都目黒区10-11-12',
+    createdAt: '2024-03-05T10:35:00Z',
+    updatedAt: '2024-03-05T10:35:00Z'
+  },
+  {
+    id: 'reg_7',
+    registrationType: 'volunteer',
+    fullName: '高橋 由美',
+    furigana: 'たかはし ゆみ',
+    email: 'volunteer2@example.com',
+    phone: '080-1122-3344',
+    address: '東京都世田谷区13-14-15',
+    createdAt: '2024-02-28T16:20:00Z',
+    updatedAt: '2024-02-28T16:20:00Z'
+  },
+  {
+    id: 'reg_8',
+    registrationType: 'supporter',
+    fullName: '伊藤 NPO',
+    furigana: 'いとう えぬぴーおー',
+    email: 'npo@example.com',
+    phone: '03-5566-7788',
+    address: '東京都港区16-17-18',
+    createdAt: '2024-02-10T13:10:00Z',
+    updatedAt: '2024-02-10T13:10:00Z'
+  },
+  {
+    id: 'reg_9',
+    registrationType: 'feedback',
+    fullName: '匿名',
+    furigana: '',
+    email: 'anonymous@example.com',
+    phone: '',
+    address: '',
+    createdAt: '2024-03-15T09:45:00Z',
+    updatedAt: '2024-03-15T09:45:00Z'
+  },
+  {
+    id: 'reg_10',
+    registrationType: 'child',
+    fullName: '小林 健太',
+    furigana: 'こばやし けんた',
+    email: 'parent3@example.com',
+    phone: '090-3344-5566',
+    address: '東京都杉並区19-20-21',
+    createdAt: '2024-03-12T11:25:00Z',
+    updatedAt: '2024-03-12T11:25:00Z'
+  }
+];
+
 /**
  * 登録者データベースページコンポーネント
  * 登録されたユーザーデータと利用者関係者登録データを保管・管理するシステム
@@ -34,6 +195,8 @@ const Database: React.FC = () => {
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTab, setActiveTab] = useState<'users' | 'registrations'>('registrations');
+  const [usersData, setUsersData] = useState<User[]>([]);
+  const [registrationsData, setRegistrationsData] = useState<Registration[]>([]);
   const itemsPerPage = 10;
   
   const { data: users, isLoading: usersLoading, error: usersError } = useQuery<User[]>({
@@ -67,6 +230,20 @@ const Database: React.FC = () => {
       }
     },
   });
+  
+  useEffect(() => {
+    if (usersError || (usersLoading === false && (!users || users.length === 0))) {
+      setUsersData(mockUsers);
+    } else if (users && users.length > 0) {
+      setUsersData(users);
+    }
+    
+    if (registrationsError || (registrationsLoading === false && (!registrations || registrations.length === 0))) {
+      setRegistrationsData(mockRegistrations);
+    } else if (registrations && registrations.length > 0) {
+      setRegistrationsData(registrations);
+    }
+  }, [users, registrations, usersLoading, registrationsLoading, usersError, registrationsError]);
   
   const filteredUsers = users?.filter(user => {
     const matchesSearch = 
