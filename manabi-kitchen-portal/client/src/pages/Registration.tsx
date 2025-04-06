@@ -580,7 +580,7 @@ const Registration: React.FC = () => {
             <h3 className="text-lg font-medium mb-2">参加登録</h3>
             <p className="text-sm text-gray-600 mb-6">参加希望の方は、以下のフォームに必要事項を入力してください。</p>
             
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="mb-6">
                 <label className="block text-sm font-medium mb-1">
                   登録種別 <span className="text-red-500">*</span>
@@ -588,7 +588,7 @@ const Registration: React.FC = () => {
                 <div className="relative">
                   <button
                     type="button"
-                    className="w-full p-2 text-left border border-gray-300 rounded flex justify-between items-center"
+                    className="w-full p-2 text-left border border-gray-300 rounded flex justify-between items-center bg-white"
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                   >
                     <span>
@@ -654,7 +654,7 @@ const Registration: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition duration-150 ease-in-out disabled:opacity-50"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded transition duration-150 ease-in-out disabled:opacity-50"
                 >
                   {isSubmitting ? '送信中...' : '送信する'}
                 </button>
