@@ -10,8 +10,30 @@ const registrationTypes = [
   { value: 'feedback', label: 'ご意見・ご要望' }
 ];
 
-const Registration = () => {
-  const [formData, setFormData] = useState({
+interface FormData {
+  registrationType: string;
+  fullName: string;
+  furigana: string;
+  email: string;
+  phone: string;
+  address: string;
+  age?: string;
+  school?: string;
+  grade?: string;
+  parentName?: string;
+  emergencyContact?: string;
+  allergies?: string;
+  experience?: string;
+  motivation?: string;
+  availability?: string;
+  skills?: string;
+  supportType?: string;
+  feedbackContent?: string;
+  privacyAgreed: boolean;
+}
+
+const Registration: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
     registrationType: '',
     fullName: '',
     furigana: '',
@@ -25,7 +47,7 @@ const Registration = () => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -101,21 +123,334 @@ const Registration = () => {
   const ChildFormSection = () => (
     <div className="mt-4">
       <h3 className="text-lg font-medium mb-4">子ども情報</h3>
-      {/* 子ども向けのフォームフィールド */}
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          お名前 <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="fullName"
+          value={formData.fullName}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          お名前（ふりがな） <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="furigana"
+          value={formData.furigana}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          年齢 <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="age"
+          value={formData.age || ''}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          学校名 <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="school"
+          value={formData.school || ''}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          学年 <span className="text-red-500">*</span>
+        </label>
+        <select
+          name="grade"
+          value={formData.grade || ''}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        >
+          <option value="">選択してください</option>
+          <option value="小学1年">小学1年</option>
+          <option value="小学2年">小学2年</option>
+          <option value="小学3年">小学3年</option>
+          <option value="小学4年">小学4年</option>
+          <option value="小学5年">小学5年</option>
+          <option value="小学6年">小学6年</option>
+          <option value="中学1年">中学1年</option>
+          <option value="中学2年">中学2年</option>
+          <option value="中学3年">中学3年</option>
+          <option value="高校1年">高校1年</option>
+          <option value="高校2年">高校2年</option>
+          <option value="高校3年">高校3年</option>
+          <option value="その他">その他</option>
+        </select>
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          保護者氏名 <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="parentName"
+          value={formData.parentName || ''}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          緊急連絡先 <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="tel"
+          name="emergencyContact"
+          value={formData.emergencyContact || ''}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          アレルギー・食事制限 (任意)
+        </label>
+        <textarea
+          name="allergies"
+          value={formData.allergies || ''}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded h-24"
+          placeholder="アレルギーや食事制限がある場合は詳細をご記入ください"
+        />
+      </div>
     </div>
   );
   
   const ParentFormSection = () => (
     <div className="mt-4">
       <h3 className="text-lg font-medium mb-4">保護者情報</h3>
-      {/* 保護者向けのフォームフィールド */}
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          お名前 <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="fullName"
+          value={formData.fullName}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          お名前（ふりがな） <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="furigana"
+          value={formData.furigana}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          メールアドレス <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          電話番号 <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="tel"
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          住所 <span className="text-red-500">*</span>
+        </label>
+        <textarea
+          name="address"
+          value={formData.address}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded h-24"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          お子様の年齢・学年 (任意)
+        </label>
+        <textarea
+          name="age"
+          value={formData.age || ''}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded"
+          placeholder="例: 小学3年生、5歳"
+        />
+      </div>
     </div>
   );
   
   const VolunteerFormSection = () => (
     <div className="mt-4">
       <h3 className="text-lg font-medium mb-4">ボランティア情報</h3>
-      {/* ボランティア向けのフォームフィールド */}
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          お名前 <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="fullName"
+          value={formData.fullName}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          お名前（ふりがな） <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="furigana"
+          value={formData.furigana}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          メールアドレス <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          電話番号 <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="tel"
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          住所 <span className="text-red-500">*</span>
+        </label>
+        <textarea
+          name="address"
+          value={formData.address}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded h-24"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          ボランティア経験 (任意)
+        </label>
+        <textarea
+          name="experience"
+          value={formData.experience || ''}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded h-24"
+          placeholder="これまでのボランティア経験があればご記入ください"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          参加動機 <span className="text-red-500">*</span>
+        </label>
+        <textarea
+          name="motivation"
+          value={formData.motivation || ''}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded h-24"
+          placeholder="まなびキッチンのボランティアに参加したい理由をお聞かせください"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          活動可能な日時 (任意)
+        </label>
+        <textarea
+          name="availability"
+          value={formData.availability || ''}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded h-24"
+          placeholder="活動可能な曜日や時間帯をご記入ください"
+        />
+      </div>
     </div>
   );
   
@@ -176,13 +511,62 @@ const Registration = () => {
           className="w-full p-2 border border-gray-300 rounded h-24"
         />
       </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          支援・協力内容 (任意)
+        </label>
+        <textarea
+          name="supportType"
+          value={formData.supportType || ''}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded h-24"
+          placeholder="どのような形で支援・協力いただけるかご記入ください"
+        />
+      </div>
     </div>
   );
   
   const FeedbackFormSection = () => (
     <div className="mt-4">
       <h3 className="text-lg font-medium mb-4">ご意見・ご要望</h3>
-      {/* ご意見・ご要望向けのフォームフィールド */}
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">
+          ご意見・ご要望内容 <span className="text-red-500">*</span>
+        </label>
+        <textarea
+          name="feedbackContent"
+          value={formData.feedbackContent || ''}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-300 rounded h-36"
+          placeholder="まなびキッチンへのご意見・ご要望をお聞かせください"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">お名前 (任意)</label>
+        <input
+          type="text"
+          name="fullName"
+          value={formData.fullName}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">メールアドレス (任意)</label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded"
+          placeholder="返信をご希望の場合はご記入ください"
+        />
+      </div>
     </div>
   );
   
