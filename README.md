@@ -165,3 +165,7 @@ T.B.D 組織移行後に [GitHub environments](https://docs.github.com/en/action
 現在本リポジトリは、クラスメソッド内部のミラーとして機能しています。
 
 今後 PR や Issue 受け入れを検討しており準備している段階です。フィードバックがありましたら、[tmk2154](https://x.com/tmk2154), [ryutawakatsuki](https://x.com/ryutawakatsuki)までお願いします。
+
+## ライセンス
+
+このプロジェクトは MIT ライセンスの下で公開されています。
