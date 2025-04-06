@@ -30,11 +30,12 @@ const DataAnalysis: React.FC = () => {
     queryKey: ['analytics', timeRange],
     queryFn: async () => {
       try {
-        const response = await fetch(`/api/analytics?timeRange=${timeRange}`);
+        const response = await fetch(`/api/registrations/analytics?timeRange=${timeRange}`);
         if (!response.ok) {
           throw new Error('分析データの取得に失敗しました');
         }
-        return response.json();
+        const jsonData = await response.json();
+        return jsonData.data || {};
       } catch (error) {
         console.error('分析データ取得エラー:', error);
         return {

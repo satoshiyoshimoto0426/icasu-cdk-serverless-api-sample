@@ -223,7 +223,8 @@ const Database: React.FC = () => {
         if (!response.ok) {
           throw new Error('登録データの取得に失敗しました');
         }
-        return response.json().then(res => res.data || []);
+        const jsonData = await response.json();
+        return jsonData.data || [];
       } catch (error) {
         console.error('登録データ取得エラー:', error);
         return [];
