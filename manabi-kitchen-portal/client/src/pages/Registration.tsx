@@ -572,65 +572,46 @@ const Registration: React.FC = () => {
   
   return (
     <div className="min-h-screen bg-blue-50 py-8 px-4">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-2xl font-bold text-center text-blue-600 mb-8">まなびキッチン登録フォーム</h1>
+      <div className="max-w-2xl mx-auto">
+        <h1 className="text-2xl font-bold text-center text-blue-600 mb-6">まなびキッチン登録フォーム</h1>
         
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
           <div className="p-6">
             <h3 className="text-lg font-medium mb-2">参加登録</h3>
             <p className="text-sm text-gray-600 mb-6">参加希望の方は、以下のフォームに必要事項を入力してください。</p>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit}>
               <div className="mb-6">
                 <label className="block text-sm font-medium mb-1">
                   登録種別 <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
-                  <button
-                    type="button"
-                    className="w-full p-2 text-left border border-gray-300 rounded flex justify-between items-center bg-white"
-                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                  <select
+                    name="registrationType"
+                    value={formData.registrationType}
+                    onChange={handleChange}
+                    required
+                    className="w-full p-2 border border-gray-300 rounded appearance-none bg-white"
                   >
-                    <span>
-                      {formData.registrationType 
-                        ? registrationTypes.find(type => type.value === formData.registrationType)?.label 
-                        : '登録種別を選択'}
-                    </span>
-                    <svg 
-                      className={`w-5 h-5 transition-transform ${dropdownOpen ? 'transform rotate-180' : ''}`} 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  
-                  {dropdownOpen && (
-                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg">
-                      {registrationTypes.map(type => (
-                        <div
-                          key={type.value}
-                          className="p-2 hover:bg-gray-100 cursor-pointer"
-                          onClick={() => handleRegistrationTypeSelect(type.value)}
-                        >
-                          {type.label}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                    <option value="">登録種別を選択</option>
+                    {registrationTypes.map(type => (
+                      <option key={type.value} value={type.value}>
+                        {type.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <p className="text-sm text-gray-500 mt-1">どのような形で参加を希望されるか選択してください</p>
               </div>
               
               {renderFormSection()}
               
-              <div className="mt-6 mb-4">
+              <div className="mt-6 mb-4 bg-blue-50 p-4 rounded">
                 <div className="flex items-start">
-                  <div className="flex items-center h-5">
+                  <div className="flex items-center h-5 mt-1">
                     <input
                       id="privacy"
-                      name="privacy"
+                      name="privacyAgreed"
                       type="checkbox"
                       checked={formData.privacyAgreed}
                       onChange={handleCheckboxChange}
