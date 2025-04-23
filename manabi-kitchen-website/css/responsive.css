@@ -1,0 +1,150 @@
+/* レスポンシブスタイル */
+@media screen and (max-width: 1024px) {
+  .sidebar {
+    width: 250px;
+  }
+  
+  .main-content {
+    margin-left: 250px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    width: 280px;
+  }
+  
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+  
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .header {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 9;
+  }
+  
+  .menu-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .menu-button__line {
+    width: 25px;
+    height: 2px;
+    background-color: #333;
+    margin-bottom: 5px;
+    transition: transform 0.3s ease;
+  }
+  
+  .menu-button__text {
+    font-size: 10px;
+    font-weight: 500;
+  }
+  
+  .global-nav {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 8;
+  }
+  
+  .global-nav.is-open {
+    display: block;
+  }
+  
+  .global-nav__list {
+    padding: 0;
+  }
+  
+  .global-nav__item {
+    border-bottom: 1px solid #eee;
+  }
+  
+  .global-nav__link {
+    display: block;
+    padding: 15px 20px;
+    color: #333;
+  }
+  
+  .page-header {
+    height: 200px;
+    margin-top: 80px;
+  }
+  
+  .page-header__title {
+    font-size: 28px;
+  }
+  
+  .page-header__subtitle {
+    font-size: 16px;
+  }
+  
+  .section-header {
+    padding-top: 50px;
+    margin-bottom: 30px;
+  }
+  
+  .section-header__title {
+    font-size: 24px;
+  }
+  
+  .footer__nav-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer__nav-column {
+    max-width: 100%;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .page-header {
+    height: 150px;
+  }
+  
+  .page-header__title {
+    font-size: 24px;
+  }
+  
+  .page-header__subtitle {
+    font-size: 14px;
+  }
+  
+  .section-header__title {
+    font-size: 20px;
+  }
+  
+  .section-header__subtitle {
+    font-size: 14px;
+  }
+}
